@@ -3,9 +3,24 @@ import pandas as pd
 import pickle
 from sklearn.preprocessing import StandardScaler
 import warnings
+import subprocess
+import sys
 
 # 处理版本警告
 warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
+
+# 安装所需包函数
+def install(package):
+    result = subprocess.run([sys.executable, "-m", "pip", "install", package, "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"], check=True)
+    if result.returncode == 0:
+        print(f"{package} successfully installed.")
+    else:
+        print(f"Failed to install {package}.")
+
+# 列出所有需要安装的包
+packages = ['pip']
+for package in packages:
+    install(package)
 
 # 加载模型和标准化器
 model_path = "random_forest_model.pkl"
@@ -17,7 +32,7 @@ with open(model_path, 'rb') as model_file, open(scaler_path, 'rb') as scaler_fil
 
 # 加载特征名称 (features.txt) 并保持顺序
 features_path = "features.txt"
-with open(features_path, 'r') as f:
+with open(features_path, 'r', encoding='utf-8') as f:
     feature_names = [line.strip() for line in f.readlines()]
 
 # 创建Web应用的标题
