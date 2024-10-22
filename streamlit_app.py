@@ -30,10 +30,8 @@ with open(model_path, 'rb') as model_file, open(scaler_path, 'rb') as scaler_fil
     model = pickle.load(model_file)
     scaler = pickle.load(scaler_file)
 
-# 加载特征名称 (features.txt) 并保持顺序
-features_path = "features.txt"
-with open(features_path, 'r', encoding='utf-8') as f:
-    feature_names = [line.strip() for line in f.readlines()]
+# 特征名称直接在代码中定义
+feature_names = ["age", "P", "respirator", "PCI", "β-blocker", "Glu"]
 
 # 创建Web应用的标题
 st.title('Machine learning-based model predicts 3-year mortality in elderly AMI patients')
